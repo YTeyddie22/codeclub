@@ -26,5 +26,5 @@ def decrypt(decode_text, shift_amount):
 
 if direction == "encode":
     encrypt(plain_text=text, shift_amount=shift);
-else: 
+elif direction == "decode":
     decrypt(decode_text=text, shift_amount=shift);
