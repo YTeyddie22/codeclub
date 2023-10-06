@@ -19,7 +19,7 @@ def cal_score(cards):
 
 def compare(user,comp):
     if user == comp:
-        return "Draw";
+        return "Draw"
     elif comp == 0:
         return "Lose, Opponent has Blackjack"
     elif user == 0:
