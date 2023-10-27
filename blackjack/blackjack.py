@@ -1,4 +1,4 @@
-############### Blackjack Project #####################
+############### Blackjack Project ###################
 import random;
 #Get random cards
 def deal_card():
