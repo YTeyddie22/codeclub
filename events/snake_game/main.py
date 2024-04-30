@@ -27,6 +27,7 @@ screen.onkey(snake.right,"Right")
 #Init the Game
 game_is_on = True
 
+
 #Checking is the game is continuing and moving snake body
 while game_is_on:
     screen.update()
