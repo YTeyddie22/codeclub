@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 import os
 
 absolute_path = os.path.dirname(__file__)
@@ -15,14 +16,31 @@ data_path = os.path.join(absolute_path,file_name )
 
 def save():
     
+    # Use Entry module functions
     website = website_entry.get()
     email = email_entry.get()
     password = password_entry.get()
     
-    with open(data_path, "a") as data_file:
-        data_file.write(f"{website}| {email} | {password}\n")
-        website_entry.delete(0,END)
-        password_entry.delete(0,END)
+     #Use the message box
+    
+    if len(website) == 0 or len(password) == 0  or len(email) == 0:
+        messagebox.showinfo(title="Oh NOO!!!", message="Please fill in all the data")
+    else:
+        is_ok =messagebox.askokcancel(title=website, message=f"These are the details that you entered: \nEmail: {email}\nPassword: {password}\nIs it okay to save?")
+    
+        if is_ok:
+            with open(data_path, "a") as data_file:
+                data_file.write(f"{website}| {email} | {password}\n")
+                website_entry.delete(0,END)
+                password_entry.delete(0,END)
+        
+    
+    
+   
+    
+    
+    
+    
 # ---------------------------- UI SETUP ------------------------------- #
 
 window = Tk()
