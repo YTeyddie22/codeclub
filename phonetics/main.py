@@ -4,9 +4,17 @@ data = pandas.read_csv('nato_phonetic_alphabet.csv')
 
 phonetic_dict = {row.letter: row.code for(index,row) in data.iterrows()}
 
-word = input("Enter the word: ").upper()
+def generatePhone():
+    word = input("Enter the word: ").upper()
 
-output = [phonetic_dict[letter] for letter in word]
+    try:
+        output = [phonetic_dict[letter] for letter in word]
+    except KeyError:
+        print("Add only letters")
+        generatePhone()
+    else: 
+        print(output)
 
-print(output)
+generatePhone()
+
 
