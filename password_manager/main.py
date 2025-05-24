@@ -78,13 +78,20 @@ def save():
 
 def search_password():
     website = website_entry.get()
-    with open(data_path) as data_file:
-        data = json.load(data_file)
+    
+    try: 
+        with open(data_path) as data_file:
+            data = json.load(data_file)
+    except:
+        messagebox.showinfo(title="Error", message="No data file found")
         
+    else:   
         if website in data:
             email = data[website]['email']
             password = data[website]['password']
             messagebox.showinfo(title=website, message=f"Email: {email}\nPassword: {password}")
+        else:
+            messagebox.showinfo(title="Error", message=f"No details for {website} exists")
     
     
    
