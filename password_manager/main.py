@@ -1,12 +1,14 @@
+import os
 from tkinter import *
 from random import choice, randint, shuffle
 from tkinter import messagebox
 import pyperclip
-import os
+import json
+
 
 absolute_path = os.path.dirname(__file__)
 img_name = "logo.png"
-file_name = "data.txt"
+file_name = "data.json"
 image_path = os.path.join(absolute_path, img_name)
 data_path = os.path.join(absolute_path,file_name )
 
@@ -38,18 +40,41 @@ def save():
     email = email_entry.get()
     password = password_entry.get()
     
+    #Create the new data
+    
+    new_data = {
+        website: {
+            "email": email,
+            "password":password
+        }
+    }
+    
      #Use the message box
     
     if len(website) == 0 or len(password) == 0  or len(email) == 0:
         messagebox.showinfo(title="Oh NOO!!!", message="Please fill in all the data")
     else:
-        is_ok =messagebox.askokcancel(title=website, message=f"These are the details that you entered: \nEmail: {email}\nPassword: {password}\nIs it okay to save?")
+        
+        try:
+            #Load, update the data into a json file
+            with open(data_path, "r") as data_file:
+                data = json.load(data_file)
+                
+        except FileNotFoundError:
+            #Save the data into a json file
+            with open(data_path, "w") as data_file:
+                json.dump(new_data, data_file, indent=4)
+        else:
+            
+            with open(data_path, "w") as data_file:
+                data.update(new_data)
+                json.dump(data, data_file, indent=4)
+        finally:    
+            website_entry.delete(0,END)
+            password_entry.delete(0,END)
+                
+        
     
-        if is_ok:
-            with open(data_path, "a") as data_file:
-                data_file.write(f"{website}| {email} | {password}\n")
-                website_entry.delete(0,END)
-                password_entry.delete(0,END)
         
     
     
